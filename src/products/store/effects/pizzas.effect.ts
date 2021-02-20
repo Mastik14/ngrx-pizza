@@ -69,6 +69,7 @@ export class PizzasEffects {
   handlePizzaSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
+        pizzaActions.CREATE_PIZZA_SUCCESS,
         pizzaActions.UPDATE_PIZZA_SUCCESS,
         pizzaActions.REMOVE_PIZZA_SUCCESS
       ),
