@@ -15,7 +15,7 @@ import {
 
 import { storeFreeze } from 'ngrx-store-freeze';
 
-import { reducers, CustomSerializer } from './store';
+import { reducers, effects, CustomSerializer } from './store';;
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze]
@@ -38,7 +38,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
