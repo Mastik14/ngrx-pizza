@@ -4,6 +4,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 
+import * as fromRoot from '../../../app/store';
 import * as pizzaActions from '../actions/pizzas.action';
 import * as fromServices from '../../services';
 
@@ -61,6 +62,20 @@ export class PizzasEffects {
           map(() => new pizzaActions.RemovePizzaSuccess(pizza)),
           catchError((error) => of(new pizzaActions.RemovePizzaFail(error)))
         );
+      })
+    )
+  );
+
+  handlePizzaSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        pizzaActions.UPDATE_PIZZA_SUCCESS,
+        pizzaActions.REMOVE_PIZZA_SUCCESS
+      ),
+      map((pizza) => {
+        return new fromRoot.Go({
+          path: ['/products'],
+        });
       })
     )
   );
