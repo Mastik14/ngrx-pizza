@@ -51,4 +51,17 @@ export class PizzasEffects {
       })
     )
   );
+
+  removePizza$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(pizzaActions.REMOVE_PIZZA),
+      map((action: pizzaActions.RemovePizza) => action.payload),
+      switchMap((pizza) => {
+        return this.pizzaService.removePizza(pizza).pipe(
+          map(() => new pizzaActions.RemovePizzaSuccess(pizza)),
+          catchError((error) => of(new pizzaActions.RemovePizzaFail(error)))
+        );
+      })
+    )
+  );
 }
